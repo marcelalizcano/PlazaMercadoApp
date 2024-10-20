@@ -13,6 +13,22 @@ namespace Data
         // Se crea una instancia de la clase Persistence para manejar la conexión a la base de datos.
         Persistence objPer = new Persistence();
 
+        //Metodo para mostrar unicamente el id y la descripcion de los Provedores, en el DropDownList
+        public DataSet showProductoDDL()
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
+
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "spSelectProductsDDL";
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
+        }
+
         // Método para mostrar los productos desde la base de datos.
         public DataSet showProducts()
         {
