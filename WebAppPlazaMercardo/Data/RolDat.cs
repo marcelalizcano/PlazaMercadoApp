@@ -11,6 +11,23 @@ namespace Data
     {
         // Se crea una instancia de la clase Persistence para manejar la conexión a la base de datos.
         Persistence objPer = new Persistence();
+
+        //Metodo para mostrar unicamente el id y la descripcion de rol
+        public DataSet showrolDDL()
+        {
+            MySqlDataAdapter objAdapter = new MySqlDataAdapter();
+            DataSet objData = new DataSet();
+
+            MySqlCommand objSelectCmd = new MySqlCommand();
+            objSelectCmd.Connection = objPer.openConnection();
+            objSelectCmd.CommandText = "spSelectrolDDL";
+            objSelectCmd.CommandType = CommandType.StoredProcedure;
+            objAdapter.SelectCommand = objSelectCmd;
+            objAdapter.Fill(objData);
+            objPer.closeConnection();
+            return objData;
+        }
+
         public DataSet showRol()
         {
             // Se crea un adaptador de datos para MySQL.
